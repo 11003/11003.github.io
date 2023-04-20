@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>translate-page</title>
+</head>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+    .wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        max-width: 1920px;
+        min-height: 650px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+    .dragon {
+        position: absolute;
+        width: 2100px;
+        height: 1080px;
+        left: 50%;
+        bottom: 0;
+        margin-left: -1050px;
+        background: url("/translate-page/images/dragon.jpg") no-repeat bottom center;
+    }
+    .ferry {
+        width: 2100px;
+        height: 100%;
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        margin-left: -1050px;
+        background: url("/translate-page/images/ferry.png") no-repeat bottom center;
+        background-size: auto 100%;
+    }
+    .tree {
+        width: 2100px;
+        height: 960px;
+        position: absolute;
+        left: 50%;
+        margin-left: -1050px;
+        bottom: 0;
+        background: url("/translate-page/images/tree.png") no-repeat top center;
+    }
+    .light {
+        width: 2100px;
+        height: 1080px;
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        margin-left: -1050px;
+        background: url("/translate-page/images/light.png") no-repeat left top;
+    }
+</style>
+<body>
+<div class="wrapper">
+    <div class="dragon"></div>
+    <div class="ferry"><div></div></div>
+    <div class="tree"></div>
+    <div class="light"><div></div></div>
+</div>
+<script>
+  (function () {
+    addEventListener(document, "mousemove", function (e) {
+      let treeObj = document.querySelectorAll('.tree');
+      let dragonObj = document.querySelectorAll(".dragon");
+      let ferryObj = document.querySelectorAll(".ferry");
+      let TreeCenterPosition = getCenterPosition(treeObj);
+      let DragonCenterPosition = getCenterPosition(dragonObj);
+      let FerryCenterPosition = getCenterPosition(ferryObj);
+      let moveYTree = (TreeCenterPosition.x - e.clientX) / 120;
+      let moveYDragon = (DragonCenterPosition.x - e.clientX) / 130;
+      let moveYFerry = (FerryCenterPosition.x - e.clientX) / 60;
+      // console.log(e);
+      treeObj[0].style.transform = "translateX(" + moveYTree + "px)";
+      treeObj[0].style.webkitTransform = "translateX(" + moveYTree + "px)";
+      treeObj[0].style.mozTransform = "translateX(" + moveYTree + "px)";
+      dragonObj[0].style.transform = "translateX(" + moveYDragon + "px)";
+      dragonObj[0].style.webkitTransform = "translateX(" + moveYDragon + "px)";
+      dragonObj[0].style.mozTransform = "translateX(" + moveYDragon + "px)";
+      ferryObj[0].style.transform = "translateX(" + moveYFerry + "px)";
+      ferryObj[0].style.webkitTransform = "translateX(" + moveYFerry + "px)";
+      ferryObj[0].style.mozTransform = "translateX(" + moveYFerry + "px)";
+    });
+
+    function addEventListener(obj, event, fn) {
+      obj.addEventListener
+        ? obj.addEventListener(event, fn, false)
+        : obj.attachEvent("on" + event, fn);
+    }
+
+    function getAbsPosition(element) {
+      let abs = { x: 0, y: 0 };
+      if (document.documentElement.getBoundingClientRect) {
+        abs.x = element.getBoundingClientRect().left;
+        abs.y = element.getBoundingClientRect().top;
+        let screenLeft = window.screenLeft || window.screenX;
+        let screenTop = window.screenTop || window.screenY;
+        abs.x +=
+          screenLeft +
+          document.documentElement.scrollLeft -
+          document.documentElement.clientLeft;
+        abs.y +=
+          screenTop +
+          document.documentElement.scrollTop -
+          document.documentElement.clientTop;
+      }
+      else {
+        while (element !== document.body) {
+          abs.x += element.offsetLeft;
+          abs.y += element.offsetTop;
+          element = element.offsetParent;
+        }
+        abs.x +=
+          window.screenLeft + document.body.clientLeft - document.body.scrollLeft;
+        abs.y +=
+          window.screenTop + document.body.clientTop - document.body.scrollTop;
+      }
+      return abs;
+    }
+
+    function getCenterPosition(element) {
+      const center = { x: 0, y: 0 };
+      let leftTop = getAbsPosition(element[0]);
+      center.x = leftTop.x + parseInt(element[0].clientWidth) / 2;
+      center.y = leftTop.y + parseInt(element[0].clientHeight) / 2;
+      return center;
+    }
+  })();
+</script>
+</body>
+</html>
