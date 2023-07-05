@@ -1,0 +1,2 @@
+import{_ as s}from"./index-afa23578.js";import{o as r,c as o}from"./@vue-77a387ba.js";import"./vue-router-01500810.js";import"./vuex-c66935bd.js";import"./axios-100bbe76.js";import"./element-plus-fb6a3102.js";import"./lodash-es-5a099399.js";import"./async-validator-7d693152.js";import"./@vueuse-a0b30193.js";import"./@element-plus-d30cbc9a.js";import"./@ctrl-41c0891e.js";import"./@popperjs-b78c3215.js";
+/* unplugin-vue-components disabled */const t=s({},[["render",function(s,t){return r(),o("div",null,"categories")}]]);export{t as default};
